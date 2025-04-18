@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nyra Skincare Chatbot</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    .page {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .active {
+      display: flex;
+    }
+    #homePage {
+      background: url('https://www.google.com/imgres?q=skincare%20images&imgurl=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0070%2F7032%2Ffiles%2Fhow-to-start-a-skincare-line-glow-oasis.jpg%3Fv%3D1666895341&imgrefurl=https%3A%2F%2Fwww.shopify.com%2Fblog%2Fstart-skincare-line&docid=UZJhHI2J5ntafM&tbnid=tuCJY-uSqqx_vM&vet=12ahUKEwjo1NOky9-MAxXzdPUHHfNNNeQQM3oECHsQAA..i&w=1500&h=1009&hcb=2&ved=2ahUKEwjo1NOky9-MAxXzdPUHHfNNNeQQM3oECHsQAA') no-repeat center center/cover;
+      color: palevioletred;
+      text-align: center;
+    }
+    .button {
+      background-color: pink;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    input, select {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid black;
+      width: 200px;
+    }
+    #chatBox {
+      width: 80%;
+      height: 60vh;
+      border: 1px solid black;
+      padding: 10px;
+      overflow-y: scroll;
+      background-color: papayawhip;
+      margin-bottom: 20px;
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user {
+      text-align: right;
+    }
+    .bot {
+      text-align: left;
+    }
+    .link-style {
+      color: white;
+      text-decoration: underline;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- First Page: Home -->
+  <div id="homePage" class="page active">
+    <h1>Nyra Skincare Chatbot</h1>
+    <button class="button" onclick="goToPage('authPage')">Get Started</button>
+    <a class="link-style" href="https://www.google.com/imgres?q=skincare%20images&imgurl=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0070%2F7032%2Ffiles%2Fhow-to-start-a-skincare-line-glow-oasis.jpg%3Fv%3D1666895341&imgrefurl=https%3A%2F%2Fwww.shopify.com%2Fblog%2Fstart-skincare-line&docid=UZJhHI2J5ntafM&tbnid=tuCJY-uSqqx_vM&vet=12ahUKEwjo1NOky9-MAxXzdPUHHfNNNeQQM3oECHsQAA..i&w=1500&h=1009&hcb=2&ved=2ahUKEwjo1NOky9-MAxXzdPUHHfNNNeQQM3oECHsQAA" target="_blank">View Skincare Product Images</a>
+  </div>
+
+  <!-- Second Page: Signup/Login -->
+  <div id="authPage" class="page">
+    <h2>Login or Sign Up</h2>
+    <input type="email" placeholder="Email" id="email" /><br />
+    <input type="password" placeholder="Password" id="password" /><br />
+    <button class="button" onclick="goToPage('infoPage')">Continue</button>
+  </div>
+
+  <!-- Third Page: Personal Information -->
+  <div id="infoPage" class="page">
+    <h2>Personal Information</h2>
+    <input type="text" placeholder="Name" id="name" /><br />
+    <input type="number" placeholder="Age" id="age" /><br />
+    <select id="skinType">
+      <option value="dry">Dry Skin</option>
+      <option value="combination">Combination Skin</option>
+      <option value="sensitive">Sensitive Skin</option>
+      <option value="oily">Oily Skin</option>
+    </select><br />
+    <button class="button" onclick="goToPage('chatPage')">Start Chat</button>
+  </div>
+
+  <!-- Fourth Page: Chatbot -->
+  <div id="chatPage" class="page">
+    <h2>Chat with Nyra</h2>
+    <div id="chatBox"></div>
+    <input type="text" id="userInput" placeholder="Enter your skincare concern..." />
+    <button class="button" onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    function sendMessage() {
+      const userInput = document.getElementById('userInput').value;
+      if (!userInput) return;
+      const chatBox = document.getElementById('chatBox');
+      const userMsg = `<div class="message user">${userInput}</div>`;
+      chatBox.innerHTML += userMsg;
+      document.getElementById('userInput').value = '';
+
+      // Dummy bot response
+      setTimeout(() => {
+        const botMsg = `<div class="message bot">For your concern: <b>${userInput}</b>, we recommend:
+          <ul>
+            <li>High: <img src='C:\Users\Admin\Desktop\download.jpg'/> Dot&Key - $50</li>
+            <li>Medium: <img src='https://via.placeholder.com/50'/> GlowCare - $30</li>
+            <li>Low: <img src='https://via.placeholder.com/50'/> SkinBasics - $15</li>
+          </ul>
+        </div>`;
+        chatBox.innerHTML += botMsg;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
